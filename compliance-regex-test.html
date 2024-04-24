@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex Tester with Escaped Regex</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        .container,
+        .description {
+            width: 70%;
+            padding: 40px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin: 20px;
+            text-align: left;
+        }
+
+        .description {
+            padding: 20px;
+            margin-top: 0;
+            /* Align top with the container above */
+            background-color: #f8f9fa;
+            /* Slightly different background for contrast */
+            box-shadow: none;
+            border: 1px solid #e9ecef;
+            /* Light border for subtle distinction */
+            font-size: 14px;
+            /* Slightly smaller font for the descriptive text */
+        }
+
+        .input-area,
+        .output-area,
+        .escape-area {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .input-area>input[type="text"],
+        .escape-area>input[type="text"],
+        .output-area>textarea {
+            width: 68%;
+            margin-right: 2%;
+            padding: 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .input-area>button,
+        .escape-area>button {
+            width: 29%;
+            margin-right: 2%;
+            padding: 15px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .input-area>button:hover,
+        .escape-area>button:hover {
+            background-color: #0056b3;
+        }
+
+        .output-area>textarea,
+        #resultBox {
+            width: 49%;
+            padding: 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 200px;
+            resize: both;
+            overflow: auto;
+        }
+
+        .highlight {
+            font-size: 19px;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bolder;
+        }
+
+        .highlight-1 {
+            background-color: yellow;
+        }
+
+        .highlight-2 {
+            background-color: aquamarine;
+        }
+
+        .placeholder {
+            opacity: 0.6;
+            user-select: none;
+            cursor: text;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .no-match {
+            font-size: 23px;
+            color: coral;
+            font-family: 'Times New Roman', Times, serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="description">
+        <p>This page provides a simple yet powerful tool for testing regular expressions (regex) in real-time. Enter
+            your regex pattern, type or paste some text to match against, and see the results instantly. Additionally,
+            you can generate an escaped version of your regex that's ready to be used in a JSON string. This feature is
+            particularly useful for developing regex patterns to be used in compliance checks. Use the 'Copy' button to
+            easily transfer the escaped regex to your clipboard, streamlining your workflow.</p>
+    </div>
+    <div class="container">
+        <div class="input-area">
+            <input type="text" id="regexInput" placeholder="Type your regex here...">
+            <button id="testButton">Test Regex</button>
+        </div>
+        <div class="output-area">
+            <textarea id="textInput" placeholder="Type your sample text here..."></textarea>
+            <div id="resultBox">
+                <span class="placeholder">Matches will be displayed here...</span>
+            </div>
+        </div>
+        <div class="escape-area">
+            <label for="escapedRegex">Escaped Regex:</label>
+            <input type="text" id="escapedRegex" readonly>
+            <button id="copyButton">Copy</button>
+        </div>
+    </div>
+
+
+    <script>
+        document.getElementById("testButton").addEventListener("click", function () {
+            const regexInput = document.getElementById("regexInput").value;
+            let textInput = document.getElementById("textInput").value;
+            const resultBox = document.getElementById("resultBox");
+            const escapedRegexBox = document.getElementById("escapedRegex");
+
+            try {
+                const regex = new RegExp(regexInput, "gm");
+                const matches = textInput.match(regex);
+
+                if (matches) {
+                    let index = 0;
+                    var highlightedText = textInput.replace(regex, match => {
+                        index += 1;
+                        index %= 2;
+                        return `<span class="highlight highlight-${index+1}">${match}</span>`
+                    });
+                    resultBox.innerHTML = highlightedText.replace(/\n/g, '<br>');
+
+                    // Escape the regex for JSON string
+                    escapedRegexBox.value = regexInput.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+                } else {
+                    resultBox.innerHTML = `<span class='no-match'>No matches found.</span>`
+                }
+
+            } catch (e) {
+                console.log(e);
+                resultBox.value = "Invalid regex.";
+            }
+        });
+
+        document.getElementById("copyButton").addEventListener("click", function () {
+            const escapedRegexBox = document.getElementById("escapedRegex");
+            escapedRegexBox.select();
+            document.execCommand("copy");
+        });
+    </script>
+</body>
+
+</html>
