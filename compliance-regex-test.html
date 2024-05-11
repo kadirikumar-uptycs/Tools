@@ -159,25 +159,27 @@
             try {
                 const regex = new RegExp(regexInput, "gm");
                 const matches = textInput.match(regex);
-
                 if (matches) {
+                    textInput = textInput.replace(/</g, '&lt;').replace(/>/g, '&gt;');
                     let index = 0;
-                    var highlightedText = textInput.replace(regex, match => {
+                    let htmlEscappedRegex = new RegExp(regexInput.replace(/</g, '&lt;').replace(/>/g, '&gt;'), "gm");
+                    var highlightedText = textInput.replace(htmlEscappedRegex, match => {
                         index += 1;
                         index %= 2;
-                        return `<span class="highlight highlight-${index+1}">${match}</span>`
+                        return `<span class="highlight highlight-${index + 1}">${match}</span>`
                     });
                     resultBox.innerHTML = highlightedText.replace(/\n/g, '<br>');
-
-                    // Escape the regex for JSON string
-                    escapedRegexBox.value = regexInput.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
                 } else {
                     resultBox.innerHTML = `<span class='no-match'>No matches found.</span>`
                 }
 
+                // Escape the regex for JSON string
+                escapedRegexBox.value = regexInput.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+
             } catch (e) {
                 console.log(e);
                 resultBox.value = "Invalid regex.";
+                alert(e)
             }
         });
 
