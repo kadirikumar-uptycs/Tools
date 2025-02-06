@@ -17,7 +17,7 @@ This script is designed to remove tags from hosts using a CSV file and credentia
 You can install the required packages using the following command:
 
 ```sh
-pip install argparse colorama requests pandas pyjwt
+pip install colorama requests pandas pyjwt
 ```
 
 ## Usage
