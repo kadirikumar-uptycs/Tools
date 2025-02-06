@@ -77,12 +77,12 @@ The CSV file should contain the following columns:
 
 Example CSV file:
 
-```csv
-asset_id,tag_name
-7bd784f7-0d2b-4e48-b79b-9e8674218625,tag1
-1a1557fc-6134-450d-b309-416734b70a80,tag1
-1a1557fc-6134-450d-b309-416734b70a80,tag2
-```
+| asset_id                            | tag_name |
+|:-------------------------------------:|:----------:|
+| 7bd784f7-0d2b-4e48-b79b-9e8674218625 | tag1     |
+| 1a1557fc-6134-450d-b309-416734b70a80 | tag1     |
+| 1a1557fc-6134-450d-b309-416734b70a80 | tag2     |
+
 
 ## Script Details
 
