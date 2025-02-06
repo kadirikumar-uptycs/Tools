@@ -2,7 +2,7 @@
 
 This script is designed to remove tags from hosts using a CSV file and credentials provided by the user. The script reads the credentials and CSV file, retrieves the tags for each host, and removes the specified tags.
 
-![host_tag_removal](https://github.com/user-attachments/assets/1ff75b30-6d80-41ec-960b-5dccd274ad31)
+![host_tag_removal](image/README/host_tag_removal.png)
 
 ## Prerequisites
 
