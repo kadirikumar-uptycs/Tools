@@ -143,9 +143,9 @@ def remove_tags(credentials, host_tag_dict:dict):
     for asset_id, tags_to_be_removed in host_tag_dict.items():
         asset_tags, host_name = get_tags(credentials, asset_id)
         print(colorama.Fore.LIGHTBLUE_EX + f"\n({index}) Host Name --> {colorama.Fore.YELLOW} {host_name} ", end='')
-        print(colorama.Fore.LIGHTBLUE_EX + f" Asset Id --> {colorama.Fore.YELLOW + asset_id }")
+        print(colorama.Fore.LIGHTBLUE_EX + f" Asset Id --> {colorama.Fore.YELLOW} {asset_id }")
         print(colorama.Fore.LIGHTGREEN_EX + f"\n\t→ Found {len(asset_tags)} tags in the Asset")
-        print(colorama.Fore.LIGHTCYAN_EX + f"\n\t→ Tags to be removed: {colorama.Fore.LIGHTWHITE_EX + tags_to_be_removed }")
+        print(colorama.Fore.LIGHTCYAN_EX + f"\n\t→ Tags to be removed: {colorama.Fore.LIGHTWHITE_EX} {tags_to_be_removed }")
 
         missing_tags = [tag for tag in tags_to_be_removed if tag not in asset_tags]
         
@@ -188,8 +188,8 @@ def main():
     wait_a_second()
     
     print(colorama.Fore.CYAN + f"\nRecieved Following Paths: \n")
-    print(colorama.Fore.LIGHTYELLOW_EX + f"\tCredentials File: {colorama.Fore.LIGHTWHITE_EX + credentials_path}")
-    print(colorama.Fore.LIGHTYELLOW_EX + f"\tCSV File: {colorama.Fore.LIGHTWHITE_EX + csv_path}")
+    print(colorama.Fore.LIGHTYELLOW_EX + f"\tCredentials File: {colorama.Fore.LIGHTWHITE_EX} {credentials_path}")
+    print(colorama.Fore.LIGHTYELLOW_EX + f"\tCSV File: {colorama.Fore.LIGHTWHITE_EX} {csv_path}")
     wait_a_second()
     
     credentials_path = get_full_path(credentials_path)
@@ -205,5 +205,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
     
