@@ -47,6 +47,8 @@ def get_full_path(file_path):
 def read_csv_file(file_path):
     try:
         df = pd.read_csv(file_path)
+        df.columns = df.columns.str.strip()
+        df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
         if "asset_id" not in df.columns or "tag_name" not in df.columns:
             print(colorama.Fore.RED + f"❌ Columns asset_id and tag_name not found in {file_path} file")
             exit(1)
